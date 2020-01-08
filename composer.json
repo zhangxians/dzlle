@@ -1,5 +1,25 @@
 {
     "name": "zhangx/dzlle",
     "description": "1.0.0",
-    "require": {}
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "zhangx\\dzlle\\": "src"
+        }
+    },
+
+    "autoload-dev": {
+        "psr-4": {
+            "zhangx\\dzlle\\": "test"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "zhangx\\dzlle\\DzlleServiceProvider"
+            ],
+            "aliases": {
+            }
+        }
+    }
 }
