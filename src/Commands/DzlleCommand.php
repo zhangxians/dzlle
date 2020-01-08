@@ -3,6 +3,9 @@
 namespace zhangx\dzlle\Commands;
 
 use Illuminate\Console\Command;
+use zhangx\dzlle\CreateConfig;
+use zhangx\dzlle\CreateFacade;
+use zhangx\dzlle\CreateRepository;
 
 class DzlleCommand extends Command
 {
@@ -37,6 +40,15 @@ class DzlleCommand extends Command
      */
     public function handle()
     {
-        //
+        $models=scandir(app_path('/Models'));
+
+        foreach ($models as $k=>$model){
+            if(!strpos($model,'php')){
+                unset($models[$k]);
+            }
+        }
+        CreateConfig::storeConfig($models);
+        CreateFacade::createFacades($models);
+        CreateRepository::createRepository($models);
     }
 }
