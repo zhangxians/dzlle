@@ -38,7 +38,6 @@ class DzlleServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        dd($this->app);
         if ($this->app->runningInConsole()) {
             $this->commands([
                 DzlleCommand::class,
@@ -53,7 +52,6 @@ class DzlleServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        return $this->provider->register();
     }
 
 
