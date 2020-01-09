@@ -3,9 +3,9 @@
 namespace zhangx\dzlle\Commands;
 
 use Illuminate\Console\Command;
-use zhangx\dzlle\CreateConfig;
-use zhangx\dzlle\CreateFacade;
-use zhangx\dzlle\CreateRepository;
+use zhangx\dzlle\CreateException;
+use zhangx\dzlle\CreateHelper;
+use zhangx\dzlle\CreateModelRepository;
 
 class DzlleCommand extends Command
 {
@@ -40,15 +40,15 @@ class DzlleCommand extends Command
      */
     public function handle()
     {
+        if(!is_dir(app_path('/Models'))){mkdir(app_path('/Models'));}
         $models=scandir(app_path('/Models'));
-
         foreach ($models as $k=>$model){
             if(!strpos($model,'php')){
                 unset($models[$k]);
             }
         }
-        CreateConfig::storeConfig($models);
-        CreateFacade::createFacades($models);
-        CreateRepository::createRepository($models);
+        CreateModelRepository::createRepository($models);
+        CreateException::mvException();
+        CreateHelper::mvHelpers();
     }
 }
