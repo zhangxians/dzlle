@@ -1,6 +1,6 @@
 <?php
 
-namespace zhangx\dzlle;
+namespace Zhangx\Dzlle;
 
 class CreateModelRepository{
 

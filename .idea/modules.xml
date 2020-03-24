@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/dzlle.iml" filepath="$PROJECT_DIR$/.idea/dzlle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/pack.iml" filepath="$PROJECT_DIR$/.idea/pack.iml" />
     </modules>
   </component>
 </project>

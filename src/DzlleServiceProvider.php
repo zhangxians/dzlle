@@ -1,6 +1,6 @@
 <?php
 
-namespace zhangx\dzlle;
+namespace Zhangx\Dzlle;
 
 use Illuminate\Support\ServiceProvider;
 use zhangx\dzlle\Commands\DzlleCommand;
