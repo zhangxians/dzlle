@@ -3,25 +3,27 @@
 namespace zhangx\dzlle\Commands;
 
 use Illuminate\Console\Command;
-use zhangx\dzlle\CreateException;
-use zhangx\dzlle\CreateHelper;
-use zhangx\dzlle\CreateModelRepository;
+use Illuminate\Support\Facades\File;
+use Zhangx\Dzlle\CreateModelRepository;
 
-class DzlleCommand extends Command
+/*
+   php artisan dzlle:init-model
+ */
+class DzlleModelCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'dzlle-init';
+    protected $signature = 'dzlle:init-model';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = '';
 
     /**
      * Create a new command instance.
@@ -47,8 +49,8 @@ class DzlleCommand extends Command
                 unset($models[$k]);
             }
         }
-        CreateModelRepository::createRepository($models);
-        CreateException::mvException();
-        CreateHelper::mvHelpers();
+
+
     }
+
 }

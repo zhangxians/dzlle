@@ -17,26 +17,27 @@ class CreateModelRepository{
      * Created by ZX.
      * @param $models
      */
-    protected static function cConfig($models){
-        $configs="<?php 
-        
-        return [ 
-            'models' => [
-         ";
+    public static function cConfig($models){
+        $config=[];
         foreach ($models as $m){
-            $m=str_replace('.php','',$m);
-            $configs.="     '$m' => 'App\Models\\$m',
-            ";
+            // 根据model名称实例化，只有设置了table的才生成
+            $model=new $m();
+            if(isset($model->table)){
+                // 生成Model中所需配置
+                // 生成Model中所需配置
+                $tableName=$model->table;
+                $columns = \Illuminate\Support\Facades\Schema::getColumnListing($tableName);
+                $config['columns'][$tableName]=$columns;
+            }
+
         }
-        $configs.= "
-            ],
-         
-         'page-limit' => 20,
-         ]; ";
-        file_put_contents(config_path('repository.php'),$configs);
+
+        $config =  $configStr="<?php\r\n\r\n return ".arrayeval($config,false).";";
+        file_put_contents(config_path('model-service.php'),$config);
         dump('配置文件新建成功');
     }
 
+    // 创建门面
     protected static function cFacades($models){
         if(!is_dir(app_path('Facades'))){mkdir(app_path('Facades'));}
         foreach ($models as $m){
@@ -63,6 +64,7 @@ class $m extends Facade
     }
 
 
+    // 创建仓库
     protected static function cRepository($models){
         if(!is_dir(app_path('Repositories'))){mkdir(app_path('Repositories'));}
         foreach ($models as $m){
@@ -86,6 +88,7 @@ class $m extends CommonRepository {
     }
 
 
+    // 移动公共方法
     protected static function mvRepository(){
         self::fileCopy(__DIR__.'/files/CommonRepository.php',app_path('Repositories/CommonRepository.php'));
         self::fileCopy(__DIR__.'/files/Traits/Repository/BaseRepositoryTrait.php',app_path('Traits/Repository/BaseRepositoryTrait.php'));

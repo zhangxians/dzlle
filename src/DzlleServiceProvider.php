@@ -52,7 +52,25 @@ class DzlleServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->registerRbacRepository();
     }
+
+
+    public function registerRbacRepository()
+    {
+        $repositories=config('model-service.repositories');
+
+        foreach ($repositories as $repositoryName=>$repository) {
+            $model = $repository['model'];
+            $repository = $repository['repository'];
+            $this->app->singleton($repositoryName, function ($app) use ($model, $repository) {
+                $m = new $model();
+                $validator = $app['validator'];
+                return new $repository($m, $validator);
+            });
+        }
+    }
+
 
 
 }

@@ -6,7 +6,8 @@ namespace Zhangx\Dzlle;
 class CreateException{
 
 
-    public static function mvException(){
+    // 移动异常类
+    public static function cpException(){
         //移动异常类
         CreateModelRepository::fileCopy(__DIR__.'/files/Exceptions/DataNotException.php',app_path('Exceptions/DataNotException.php'));
         CreateModelRepository::fileCopy(__DIR__.'/files/Exceptions/ForbiddenException.php',app_path('Exceptions/ForbiddenException.php'));
@@ -15,8 +16,5 @@ class CreateException{
         CreateModelRepository::fileCopy(__DIR__.'/files/Exceptions/ProgramException.php',app_path('Exceptions/ProgramException.php'));
         CreateModelRepository::fileCopy(__DIR__.'/files/Exceptions/ValidateException.php',app_path('Exceptions/ValidateException.php'));
     }
-
-
-
 
 }
