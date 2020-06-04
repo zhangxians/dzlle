@@ -23,8 +23,6 @@ class CreateConfig{
         }
         $configs.= "
             ],
-         
-         'page-limit' => 20,
          ]; ";
         file_put_contents(config_path('repository.php'),$configs);
     }
