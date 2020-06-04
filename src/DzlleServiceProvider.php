@@ -4,6 +4,8 @@ namespace Zhangx\Dzlle;
 
 use Illuminate\Support\ServiceProvider;
 use zhangx\dzlle\Commands\DzlleCommand;
+use zhangx\dzlle\Commands\DzlleConfigCommand;
+use zhangx\dzlle\Commands\DzlleModelCommand;
 
 class DzlleServiceProvider extends ServiceProvider
 {
@@ -41,6 +43,8 @@ class DzlleServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 DzlleCommand::class,
+                DzlleConfigCommand::class,
+                DzlleModelCommand::class,
             ]);
         }
     }
@@ -52,8 +56,9 @@ class DzlleServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerRbacRepository();
+      //  $this->registerRbacRepository();
     }
+
 
 
     public function registerRbacRepository()
@@ -70,7 +75,6 @@ class DzlleServiceProvider extends ServiceProvider
             });
         }
     }
-
 
 
 }
