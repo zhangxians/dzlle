@@ -115,7 +115,6 @@ use Illuminate\Support\Facades\Facade;
  * @method static mixed batchInsert(array $items)
  * @method static mixed pagetemp($res,$pageSize, $pageNum,$orderby,$selects=\'*\')
  * @method static mixed getModel()
-
  */
 
 class '.$m.' extends Facade
@@ -141,7 +140,7 @@ class '.$m.' extends Facade
         foreach ($models as $m){
             $m=str_replace('.php','',$m).'Repository';
 
-            $str="<?php namespace App\Repositories;
+            $str='<?php namespace App\Repositories;
 
 /**
  * 
@@ -150,8 +149,15 @@ class '.$m.' extends Facade
  */
 class $m extends CommonRepository {
 
+    /**
+    * 查询方法TODO
+    */
+    public function query($inputs){
+        $model = $this ->model;
+    
+    }
   
-}";
+}';
             if(is_file(app_path("Repositories/$m.php"))){continue;}
             file_put_contents(app_path("Repositories/$m.php"),$str);
             echo PHP_EOL."仓库 $m 新建成功";
@@ -163,7 +169,8 @@ class $m extends CommonRepository {
      * 移动公共方法
      */
     protected static function mvRepository(){
-        self::fileCopy(__DIR__.'/files/CommonRepository.php',app_path('Repositories/CommonRepository.php'));
+        self::fileCopy(__DIR__.'/files/CommonRepository.php',
+            app_path('Repositories/CommonRepository.php'));
         self::fileCopy(__DIR__.'/files/Traits/Model/BaseModelTrait.php',
             app_path('Traits/Model/BaseModelTrait.php'));
         self::fileCopy(__DIR__.'/files/Traits/Repository/BaseRepositoryTrait.php',

@@ -28,8 +28,12 @@ class DataNotException extends ProgramException
         $message = $this->getMessage() ?: '数据找不到啦';
         $code = $this->getCode() ?: 200;
         $redirect = $this->getRedirect() ?:'/';
-        return $request->ajax() || $request->wantsJson() ?
-            response()->json([ 'code'=>1,'msg' => $message,'data'=>null ],$code) :
-            response(view('errors.404', compact('code', 'message', 'redirect')), $code);
+        $isAjax = $request->ajax() || $request->wantsJson();
+        if($isAjax){
+            return response()->json([ 'code'=>201,'msg' => $message,'data'=>null ],$code);
+        }else{
+            return response(view('errors.404', compact('code', 'message', 'redirect')), $code);
+        }
+
     }
 }
