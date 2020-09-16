@@ -1,6 +1,6 @@
 {
     "name": "zhangx/dzlle",
-    "description": "1.1.2",
+    "description": "1.2.0",
     "require": {},
     "autoload": {
         "psr-4": {
