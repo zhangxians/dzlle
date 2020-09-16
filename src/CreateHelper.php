@@ -6,7 +6,10 @@ namespace Zhangx\Dzlle;
 class CreateHelper{
 
 
-    public static function mvHelpers(){
+    /**
+     * 移动扩展
+     */
+    public static function cpHelpers(){
         //图片处理扩展
         CreateModelRepository::fileCopy(__DIR__.'/files/Traits/Controller/ImageTrait.php',app_path('Traits/Controller/ImageTrait.php'));
 

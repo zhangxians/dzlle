@@ -4,8 +4,6 @@ namespace Zhangx\Dzlle;
 
 use Illuminate\Support\ServiceProvider;
 use zhangx\dzlle\Commands\DzlleCommand;
-use zhangx\dzlle\Commands\DzlleConfigCommand;
-use zhangx\dzlle\Commands\DzlleModelCommand;
 
 class DzlleServiceProvider extends ServiceProvider
 {
@@ -41,10 +39,9 @@ class DzlleServiceProvider extends ServiceProvider
     public function boot()
     {
         if ($this->app->runningInConsole()) {
+
             $this->commands([
                 DzlleCommand::class,
-                DzlleConfigCommand::class,
-                DzlleModelCommand::class,
             ]);
         }
     }
@@ -55,24 +52,28 @@ class DzlleServiceProvider extends ServiceProvider
      */
     public function register()
     {
-      //  $this->registerRbacRepository();
+        $this->registerRbacRepository();
     }
 
 
-
+    /**
+     * 注册 repository
+     */
     public function registerRbacRepository()
     {
-        $repositories=config('model-service.repositories');
-
-        foreach ($repositories as $repositoryName=>$repository) {
-            $model = $repository['model'];
-            $repository = $repository['repository'];
-            $this->app->singleton($repositoryName, function ($app) use ($model, $repository) {
-                $m = new $model();
-                $validator = $app['validator'];
-                return new $repository($m, $validator);
-            });
+        if(is_file(config_path('repository.php'))){
+            $repositories=config('repository.repositories');
+            foreach ($repositories as $repositoryName=>$repository) {
+                $model = $repository['model'];
+                $repository = $repository['repository'];
+                $this->app->singleton($repositoryName, function ($app) use ($model, $repository) {
+                    $m = new $model();
+                    $validator = $app['validator'];
+                    return new $repository($m, $validator);
+                });
+            } 
         }
+
     }
 
 
